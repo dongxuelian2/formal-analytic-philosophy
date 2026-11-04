@@ -276,7 +276,11 @@ Hardness persists with two support types and standard uncolored geometry.
 The two-support fork admits a direct four-marginal integer criterion;
 one support type and fixed-color forks are tractable.
 
-Further questions concern useful tractable fragments and finite axiomatization.
+The later [axiomatization boundary](finite-axiomatization-boundary.md) shows
+that finite validity for the full language is not recursively enumerable,
+so no effective finite-proof sound and complete calculus exists for the
+unrestricted finite class. Positive axiomatization questions therefore require
+an explicit fragment restriction or a different model class.
 Infinite state spaces require separate hypotheses: the finite
 quotient-amalgamation proof does not establish surjectivity onto infinite
 products. These gaps are not concealed by the finite representation theorem.
