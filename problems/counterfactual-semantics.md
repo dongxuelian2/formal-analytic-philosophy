@@ -38,4 +38,6 @@ A fundamental starting constraint: **SDA + SEA implies AS** over a classical Boo
 
 ## Current status
 
-Research question defined; no new theorem or computation is claimed in this document.
+See [variation centering and import](variation-centering-and-import.md) for the initial correction and frame boundary, and [intrinsic finite representation](intrinsic-finite-representation.md) for an exact same-world representation criterion from abstract conditional relations.
+
+The next bottleneck is eliminating or efficiently deciding the truth-local Boolean completion, rather than proving further isolated validities. A finite equational axiomatization, infinite-model extension, and priority assessment remain open. The existing independent-coordinate and factor-equivalence results are not claimed as new.
