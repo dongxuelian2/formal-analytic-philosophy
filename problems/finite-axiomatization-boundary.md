@@ -124,3 +124,5 @@ The modal reset translation and the finite cover establish applicability to arbi
 - [BH] Nick Bezhanishvili and Ian Hodkinson, *All normal extensions of S5-squared are finitely axiomatizable*. [Author PDF](https://www.doc.ic.ac.uk/~imh/papers/s5.pdf), Sections 1–2. Lists the S5 and commutation axioms and recalls completeness for finite square products, attributing the product completeness to Segerberg.
 - Rachael Briggs, *Interventionist Counterfactuals* (2012), Section 4. [Author/institution-hosted text](https://humanities-web.s3.us-east-2.amazonaws.com/philosophy/prod/2024-08/Briggs%20Interventionist%20Counterfactuals%202012.pdf).
 - Kit Fine and Mark Jago, *Logic for Exact Entailment*. [DOI](https://doi.org/10.1017/S1755020318000151).
+
+- Fausto Barbero and Fan Yang, *Characterizing counterfactuals and dependencies over causal and generalized causal teams*. [Preprint](https://arxiv.org/abs/2201.08750), Section 2.1 (finite variable/value signatures), Sections 4.2 and 5 (completeness systems).
