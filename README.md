@@ -16,6 +16,13 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Value-complete intervention boundary](problems/value-complete-interventions.md):
+
+- Literal-only coarse-predicate interventions still have non-r.e. finite validity, even with nonconstant, realizable markers of genuinely relevant singleton support. Excluding tautological antecedents does not suffice.
+- For explicit complete Boolean feature values, full Boolean antecedents and nested consequents have PSPACE-complete satisfiability/validity and a sound, weakly complete intervention-reduction calculus.
+- PSPACE hardness already uses only non-tautological positive alternatives p OR q; deterministic literal-conjunction assignments instead give NP/coNP satisfiability/validity for tree formulas.
+- The exact relation to prior DL-PA/DL-PPA assignment calculi is attributed. [Checks](models/check_interventions.py) cover reduction, overwrite, literal projection, and guarded QBF translations.
+
 [Finite axiomatization boundary](problems/finite-axiomatization-boundary.md):
 
 - Finite-valid formulas of the full raw-variation language are not recursively enumerable, already in a fragment with three fixed tautological antecedents.
