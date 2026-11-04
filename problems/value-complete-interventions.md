@@ -65,7 +65,7 @@ This is an overwrite representation, not classical replacement of equivalent ant
 
 For arbitrary nesting, keep the current valuation, the current antecedent-generation state, and a stack of formula positions. Each conditional reduces the remaining state-formula nesting depth. The total stack and assignment storage are polynomial, even though runtime can be exponential. Boolean connectives are evaluated depth first as well. Satisfiability additionally enumerates the n initial feature bits; validity checks all of them. Hence both problems are in PSPACE.
 
-**Lower bound.** Translate a closed quantified Boolean formula by leaving its Boolean matrix unchanged and using
+**Lower bound.** Start with a closed prenex quantified Boolean formula, with distinct bound variable names (alpha-rename binders first if needed). Translate it by leaving its Boolean matrix unchanged and using
 
     forall p. psi  ->  (p OR NOT p) > translation(psi),
     exists p. psi  ->  NOT ((p OR NOT p) > NOT translation(psi)).
