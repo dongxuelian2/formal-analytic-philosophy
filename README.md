@@ -16,7 +16,14 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
-Research in progress. The repository will list new theorems, countermodels, and formal proofs here as they are established.
+[Variation centering audit and import boundary](problems/variation-centering-and-import.md):
+
+- A minimal two-point countermodel to unrestricted SDA in the 14 March 2022 centered variation definition.
+- An exact-overwrite representation, one-way import theorem, and sufficient two-way criterion for explicitly defined uncentered local-support semantics.
+- A sharp finite-frame characterization: with coordinate equality atoms, import is valid exactly on Cartesian products of coordinate projections.
+- Explicit AS, SEA, CC, and export countermodels; [standard-library finite checks](models/check_variation.py).
+
+These are proved intermediate results, not a completed axiomatization or a verified priority claim. Briggs' extended-semantics IE question remains separate and open here.
 
 ## References
 
