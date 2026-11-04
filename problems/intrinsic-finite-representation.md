@@ -267,15 +267,19 @@ bounded depth, from the intrinsic recursion against the
 coordinate evaluator, and checks the joint-color obstruction and singleton
 case. These checks support the written proof; they do not replace it.
 
-## 6. What remains
+## 6. Exact complexity and remaining questions
 
-The finite same-world existence problem now has an exact relational criterion;
-the expensive remaining ingredient is the colored Boolean completion. Next
-questions are an intrinsic elimination of that existential completion, sharp
-complexity, and a useful finite axiomatization. Infinite state spaces require
-separate hypotheses: the finite quotient-amalgamation proof does not establish
-surjectivity onto infinite products. None of these gaps is concealed by the
-finite representation theorem.
+The subsequent [colored-completion theorem](colored-completion-complexity.md)
+proves that the finite explicit atomic-extension and observed-realization
+problems are NP-complete, giving a matching lower bound for Proposition 5.
+Hardness persists with two support types and standard uncolored geometry.
+The two-support fork admits a direct four-marginal integer criterion;
+one support type and fixed-color forks are tractable.
+
+Further questions concern useful tractable fragments and finite axiomatization.
+Infinite state spaces require separate hypotheses: the finite
+quotient-amalgamation proof does not establish surjectivity onto infinite
+products. These gaps are not concealed by the finite representation theorem.
 
 ## Sources and version check
 
