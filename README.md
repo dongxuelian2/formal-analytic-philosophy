@@ -16,6 +16,14 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Colored completion is NP-complete](problems/colored-completion-complexity.md):
+
+- Matching complexity bounds for finite explicit atomic extension and observed realization.
+- Hardness already with two distinct support equivalences, standard uncolored product geometry, and each support type separately representable.
+- A direct four-marginal integer criterion for the two-support fork, with a complete polynomial reduction from partial Latin square completion.
+- [Reproducible checks](models/check_completion.py): 10,256 small fork inputs and all 11,813 valid partial Latin squares of orders 1–3.
+- One support type is polynomial-time decidable. Two support types permit NP-completeness when the number of propositional truth bits grows. Classical marginal, Latin-square, and PR-box precedents are explicitly attributed.
+
 [Intrinsic finite representation](problems/intrinsic-finite-representation.md):
 
 - Necessary and sufficient conditions for abstract conditional systems on a finite world set: atomic reset, truth-local Boolean completion of equivalences, and exact-verifier generation.
