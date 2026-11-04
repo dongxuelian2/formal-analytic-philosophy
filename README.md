@@ -16,6 +16,15 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Intrinsic finite representation](problems/intrinsic-finite-representation.md):
+
+- Necessary and sufficient conditions for abstract conditional systems on a finite world set: atomic reset, truth-local Boolean completion of equivalences, and exact-verifier generation.
+- Constructive coordinate recovery and uniqueness of the full conditional extension from positive/negative atomic data.
+- A joint-color obstruction, complete single-support test, and NP upper bound for finite explicit observed realization.
+- [Finite representation checker](models/check_intrinsic.py): 57,600 atomic inputs and 84,672 bounded-depth formula matrices, independently compared with coordinate representations.
+
+The factor-equivalence geometry and related independence/assignment frameworks are attributed to prior work. The combined theorem's priority remains unestablished; this is not a finite equational axiomatization or an infinite-model theorem.
+
 [Variation centering audit and import boundary](problems/variation-centering-and-import.md):
 
 - A minimal two-point countermodel to unrestricted SDA in the 14 March 2022 centered variation definition.
