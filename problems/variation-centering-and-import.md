@@ -172,7 +172,11 @@ points Ω⊆∏D_i. Take D_i to be the projection of Ω on coordinate i, so unus
 coordinate values are excluded. Keep local atoms and the raw verifier rule;
 require that every coordinate equality `x_i=d` is available with support {i}.
 Conjunctions of these atoms and a contradictory consequent are therefore
-expressible. Selections and truthmaker extensions range only over Ω.
+expressible. Selections and truthmaker extensions range only over Ω. The
+theoretical result in this section also permits infinite coordinate domains:
+only the number of coordinates must be finite, and the language must contain
+the required equality predicates. Finite domains are used by the executable
+checker, not by this proof. Empty selections use ordinary vacuous truth.
 
 **Theorem 4 (import characterizes rectangularity).** The following are equivalent:
 
@@ -192,6 +196,23 @@ start from any point and replace coordinates one at a time. Finiteness gives
 a point with exactly the desired tuple. For zero or one coordinate,
 rectangularity follows directly from nonemptiness and the definition of the
 projections. □
+
+**Nonvacuous strengthening.** The same rectangularity boundary holds if import
+is tested only at points where both stages of sequential evaluation are
+nonempty. For a missing splice u=w[i←v_i], take instead
+
+    A = ((x_i=w_i) ∨ (x_i=v_i)),
+    B = ∧_{j≠i} ((x_j=w_j) ∨ (x_j=v_j)),
+    C = (x_i=w_i).
+
+Every verifier of A has support {i}; its only two possible outcomes are w and
+the absent u. Thus R_A(w)={w}. Every verifier of B has support I\{i}, and B
+is true at w, so R_B(w) is nonempty and every member satisfies C. The nested
+conditional is therefore true with both stages nonempty. The conjunction's
+verifier has support I, and v satisfies A∧B, so v is a joint outcome. Since
+v_i≠w_i, C fails there. This is an import failure with **both antecedents true
+at the original point**, not an artefact of vacuous truth. No nontrivial-change
+requirement is imposed: the first stage is intentionally an identity update.
 
 This is an exact representation of the feasible state-space boundary, not a
 complete representation of arbitrary abstract conditional algebras. The result
@@ -239,6 +260,8 @@ nonvalidities above, and checks 24,336 ordered formula/world cases on the
 Boolean square, including 800 disjoint-support cases. The finite computation
 also checks all 255 nonempty subsets of the Boolean 3-cube: the special import
 instances identify exactly its 27 rectangular subframes. The computation
+also validates 2,304 nonvacuous missing-splice witnesses with both stages
+nonempty. It
 does not prove the theorems; the proofs above do. No SAT/SMT or proof assistant
 verification is claimed. Finite evaluation is effective by enumerating points
 and verifier supports; no favorable worst-case complexity bound is claimed.
