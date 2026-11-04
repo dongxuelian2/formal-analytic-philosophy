@@ -16,6 +16,14 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Finite axiomatization boundary](problems/finite-axiomatization-boundary.md):
+
+- Finite-valid formulas of the full raw-variation language are not recursively enumerable, already in a fragment with three fixed tautological antecedents.
+- Therefore no effective system with finite proofs is both sound and weakly complete for all finite local product models with unbounded domain sizes.
+- A finite cyclic-group cover handles arbitrary overlapping supports and proves exact correspondence with finite S5 product modalities, using the classical finite-product undecidability theorem of Troquard–Walther.
+- The one/two-reset fragments retain the classical finite-complete S5/S5×S5 Hilbert calculi. This is not a completeness result for the full conditional language or an impossibility theorem for infinite-model semantics.
+- [Cover checker](models/check_modal_cover.py): 792 support/domain patterns and 1,983,006 nested formula/world evaluations.
+
 [Colored completion is NP-complete](problems/colored-completion-complexity.md):
 
 - Matching complexity bounds for finite explicit atomic extension and observed realization.
