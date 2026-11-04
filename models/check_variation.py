@@ -99,6 +99,7 @@ def main():
     # Exact frame boundary: test every nonempty subset of the Boolean 3-cube.
     cube = tuple(product((0, 1), repeat=3))
     rectangular_count = 0
+    nonvacuous_witnesses = 0
     for mask in range(1, 1 << len(cube)):
         points = {w for k, w in enumerate(cube) if mask & (1 << k)}
         atoms = {f'{i}={value}': ({i}, {w for w in points if w[i] == value})
@@ -113,10 +114,22 @@ def main():
             joint = restricted.select(w, conj(a, b))
             seq = set().union(*(restricted.select(u, b) for u in restricted.select(w, a)))
             imports &= joint <= seq
+            splice = tuple(v[j] if j == i else w[j] for j in range(3))
+            if splice not in points:
+                av = disj(f'{i}={w[i]}', f'{i}={v[i]}')
+                bv = conj(*(disj(f'{j}={w[j]}', f'{j}={v[j]}') for j in range(3) if j != i))
+                first = restricted.select(w, av)
+                assert first == {w}
+                second = restricted.select(w, bv)
+                assert w in second and all(t[i] == w[i] for t in second)
+                combined = restricted.select(w, conj(av, bv))
+                assert v in combined and v[i] != w[i]
+                nonvacuous_witnesses += 1
         assert imports == rectangular
         rectangular_count += rectangular
     assert rectangular_count == 27
     print('All 255 nonempty Boolean 3-cube frames: import tests characterize exactly 27 rectangular frames.')
+    print(f'Checked {nonvacuous_witnesses} nonvacuous missing-splice witnesses, with both stages nonempty.')
     print('These finite checks support, but do not replace, the accompanying general proofs.')
 
 
