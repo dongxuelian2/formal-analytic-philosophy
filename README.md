@@ -16,12 +16,15 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
-[Feasible-domain fusion boundary](problems/feasible-fusion-boundary.md):
+[Feasible-domain fusion boundary](problems/feasible-fusion-boundary.md) is the focused main result:
 
-- Equality-constrained Boolean models with pairwise disjoint, inclusion-minimal writable supports can realize any prescribed antichain of nonsingleton feature coalitions as the minimal interventions capable of changing a read-only decision.
-- Guarded models have isomorphic atomic intervention systems, including all decision labels, but different fused interventions. For every k, agreement on all interventions of width at most k does not determine width k+1, even with arbitrary nesting.
-- On arbitrary finite feasible domains, literal availability and one maximal-support frame test per feature characterize exactly the faithful Boolean feature quotient. The worst-case witness width of m-1 for m features is optimal.
-- Read-only classifier outputs extend the quotient precisely when they factor through the visible features. Generic footprint sensitivity, functional dependence, and causal abstraction are attributed to prior work; novelty of these specific constructions remains unestablished. [Finite checks](models/check_feasible_fusion.py).
+- Any antichain H of nonsingleton feature coalitions has an equality-only Boolean realization with disjoint minimal supports and exactly H as the minimal possible decision-changing coalitions, at every source and for every target bit pattern. A full-product model has the same complete labeled atomic intervention system but no joint decision changes.
+- The realization is size-optimal among equality-only Boolean models with disjoint supports and literal availability: at least 2^(n+|H|) worlds, n+sum_C|C| raw coordinates, and 1+deg_H(i) coordinates in each feature support are necessary. At the minimum world count, uniform effects force the decision parity structure.
+- For the displayed pair, the first distinguishing intervention width is min_C|C|, even with arbitrary nesting, tests, sequential choice/iteration, converse and intersection. Complete endpoint reconstruction in the realization instead needs width max_C|C|. Partial guards isolate the undetermined higher-order coalitions after all width-k data are known.
+- A maximal-support functional-dependency test characterizes exact Boolean feature quotients. A decision-spectrum lemma gives the corresponding precise first-effect width for atomically invariant observations. Deterministic outputs extend the feature-only quotient exactly when they depend only on visible features; the negative XAI examples concern possible effects, not guaranteed recourse or causal identification.
+- The hidden equality/XOR gadget is explicitly identified with classical generalized secret sharing (Benaloh–Leichter, Theorem 2), not claimed as new. Exact DL-PPA, constrained-causal-model, abstraction, database and classifier comparisons delimit the intervention-specific package. Publication priority remains unestablished. [Finite checks](models/check_feasible_fusion.py).
+
+### Earlier results retained as research background
 
 [Visible Boolean quotient](problems/visible-boolean-quotient.md):
 
@@ -80,5 +83,6 @@ These are proved intermediate results, not a completed axiomatization or a verif
 ## Working style
 
 See [AGENTS.md](AGENTS.md). The repository is organized around mathematical questions and verified results, not a software platform.
+
 
 

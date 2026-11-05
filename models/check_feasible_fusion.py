@@ -93,8 +93,19 @@ def antichains(n):
             yield family
 
 
-def construct(n, family, guarded=False):
+def construct(n, family, guarded=False, flat=False):
     """Build explicit coordinate tuples, then evaluate predicates locally."""
+    if flat:
+        worlds, values, decisions, keys = [], {}, {}, {}
+        for bits in product((0, 1), repeat=n + len(family)):
+            a, hidden = bits[:n], bits[n:]
+            visible = tuple(a[i] ^ (sum(hidden[j] for j, c in enumerate(family)
+                                       if i in c) % 2) for i in range(n))
+            w = visible + hidden
+            worlds.append(w)
+            values[w], decisions[w], keys[bits] = visible, sum(hidden) % 2, w
+        supports = tuple(frozenset((i,)) for i in range(n))
+        return Raw(worlds, supports, values), decisions, keys, frozenset(range(n, n + len(family)))
     columns = [(j, i) for j, c in enumerate(family) for i in sorted(c)]
     positions = {pair: n + k for k, pair in enumerate(columns)}
     supports = tuple(frozenset([i] + [positions[j, i]
@@ -105,8 +116,8 @@ def construct(n, family, guarded=False):
     for bits in product((0, 1), repeat=n + len(family)):
         a, hidden = bits[:n], bits[n:]
         w = a + tuple(hidden[j] for j, i in columns)
-        if guarded:
-            w += hidden
+        guard_indices = range(len(family)) if guarded is True else (guarded or ())
+        w += tuple(hidden[j] for j in guard_indices)
         worlds.append(w)
         values[w] = tuple(sum(w[k] for k in s) % 2 for s in supports)
         decisions[w] = sum(w[k] for k in representatives) % 2
@@ -135,21 +146,25 @@ def check_minimal(model, decisions, decision_support):
 
 def check_family(n, family, all_sources=True):
     raw, decision, keys, ds = construct(n, family)
-    guard, gd, gkeys, gds = construct(n, family, guarded=True)
+    guard, gd, gkeys, gds = construct(n, family, flat=True)
+    frozen, fd, fkeys, fds = construct(n, family, guarded=True)
+    check_minimal(frozen, fd, fds)
     translate = {w: gkeys[k] for k, w in keys.items()}
+    to_frozen = {w: fkeys[k] for k, w in keys.items()}
     check_minimal(raw, decision, ds)
     check_minimal(guard, gd, gds)
     assert maximal_criterion(raw) and maximal_criterion(guard)
     assert set(raw.values.values()) == set(product((0, 1), repeat=n))
     for w in raw.worlds:
         assert raw.values[w] == guard.values[translate[w]]
-        assert decision[w] == gd[translate[w]]
+        assert decision[w] == gd[translate[w]] == fd[to_frozen[w]]
         for p in range(n):
             for literal in (p, ('not', p)):
                 actual = raw.successors(literal, w)
                 assert len(actual) == 1
                 assert {translate[v] for v in actual} == \
                     guard.successors(literal, translate[w])
+                assert {to_frozen[v] for v in actual} == frozen.successors(literal, to_frozen[w])
 
     sources = raw.worlds if all_sources else raw.worlds[::max(1, len(raw.worlds) // 8)]
     count = 0
@@ -162,6 +177,8 @@ def check_family(n, family, all_sources=True):
         for w in sources:
             actual = raw.successors(a, w)
             guarded = guard.successors(a, translate[w])
+            assert {to_frozen[v] for v in raw.worlds if translate[v] in guarded} == \
+                frozen.successors(a, to_frozen[w])
             assert len(actual) == 2 ** released
             assert len(guarded) == 1
             assert {raw.values[v] for v in actual} == cube_successors(a, raw.values[w])
@@ -179,7 +196,7 @@ def check_family(n, family, all_sources=True):
 def nested_width(n):
     family = (frozenset(range(n)),)
     raw, d, keys, _ = construct(n, family)
-    guard, gd, gkeys, _ = construct(n, family, guarded=True)
+    guard, gd, gkeys, _ = construct(n, family, flat=True)
     translate = {w: gkeys[k] for k, w in keys.items()}
     values = {w: raw.values[w] + (d[w],) for w in raw.worlds}
     gvalues = {w: guard.values[w] + (gd[w],) for w in guard.worlds}
@@ -289,5 +306,107 @@ def main():
     print(f'PASS: {sharp_count} lower-width feature-quotient cases; optimal m-1 failures for m=3,4,5.')
 
 
+
+
+
+
+def equality_size_checks():
+    def minimal(xs):
+        return {x for x in xs if not any(y != x and y & x == y for y in xs)}
+
+    checked = bounded = rigid = 0
+    for n, maxr in ((1,3),(2,3),(3,2)):
+      for r in range(1,maxr+1):
+        for owners in product(range(1<<n),repeat=r): # zero means uncovered/guarded
+          for table in range(1<<(1<<r)):
+            val = lambda w: table>>w&1
+            essential = {k for k in range(r) if any(val(w)!=val(w^(1<<k)) for w in range(1<<r))}
+            predicted = minimal({owners[k] for k in essential if owners[k]})
+            actual = set()
+            pointwise = {}
+            for J in range(1<<n):
+              released = sum(1<<k for k,C in enumerate(owners) if C and C&J==C)
+              changing_sources = {w for w in range(1<<r) if any((w^v)&~released==0 and val(w)!=val(v) for v in range(1<<r))}
+              if changing_sources: actual.add(J)
+              pointwise[J] = changing_sources
+            actual = minimal(actual)
+            assert actual == predicted
+            checked += 1
+            private = all((1<<i) in owners for i in range(n))
+            if private and actual and all(C.bit_count()>=2 for C in actual):
+              assert r >= n+len(actual)
+              assert sum(max(1,C.bit_count()) for C in owners) >= n+sum(C.bit_count() for C in actual)
+              for i in range(n):
+                assert sum(bool(C & (1 << i)) for C in owners) >= 1 + sum(bool(C & (1 << i)) for C in actual)
+              bounded += 1
+              uniform = all(len(pointwise[J]) in (0,1<<r) for J in range(1<<n))
+              if uniform and r == n+len(actual):
+                hidden = sum(1<<k for k,C in enumerate(owners) if C in actual)
+                assert all(val(w) == (val(0)^((w&hidden).bit_count()%2)) for w in range(1<<r))
+                rigid += 1
+    print(f'PASS: {checked} owner-list/decision-table instances; {bounded} nonempty nonsingleton coalition models satisfying private-class availability; {rigid} minimum-world uniform instances with forced parity.')
+
+
+def partial_guard_and_recovery():
+    # Pair and triple effects; compare independently enumerated raw endpoints.
+    n, family = 4, (frozenset((0, 1)), frozenset((1, 2, 3)))
+    raw, d, keys, _ = construct(n, family)
+    partial, pd, pkeys, _ = construct(n, family, guarded=(1,))
+    translate = {w: pkeys[k] for k, w in keys.items()}
+    inverse = {v: w for w, v in translate.items()}
+    for assignment in product((-1, 0, 1), repeat=n):
+        j = frozenset(i for i, b in enumerate(assignment) if b != -1)
+        if not j:
+            continue
+        a = clause(assignment)
+        for w in raw.worlds:
+            actual = raw.successors(a, w)
+            other = {inverse[v] for v in partial.successors(a, translate[w])}
+            assert (actual == other) == (not family[1] <= j)
+            support = frozenset().union(*(raw.supports[i] for i in j))
+            fibre = {v for v in raw.worlds if raw.same_outside(w, v, support)}
+            assert {d[v] for v in actual} == {d[v] for v in fibre}
+            assert d[w] in {d[v] for v in actual}
+    # Compute reset components by BFS, not the release-count formula.
+    for k in (1, 2, 3):
+        for jmask in range(1, 1 << n):
+            j = frozenset(i for i in range(n) if jmask >> i & 1)
+            small = [frozenset(c) for r in range(1, min(k, len(j)) + 1)
+                     for c in combinations(j, r)]
+            supports = [frozenset().union(*(raw.supports[i] for i in c)) for c in small]
+            total = frozenset().union(*(raw.supports[i] for i in j))
+            for w in raw.worlds[:4]:
+                reached, todo = {w}, [w]
+                while todo:
+                    u = todo.pop()
+                    for v in raw.worlds:
+                        if v not in reached and any(raw.same_outside(u, v, s) for s in supports):
+                            reached.add(v)
+                            todo.append(v)
+                fibre = {v for v in raw.worlds if raw.same_outside(w, v, total)}
+                assert (reached == fibre) == all(len(c) <= k for c in family if c <= j)
+    raw.clear()
+    partial.clear()
+    print('PASS: mixed pair/triple partial guards, decision spectra, and exact reset-recovery widths.')
+
+
+def quotient_intersection_boundary():
+    worlds = tuple((r, c) for r in range(4) for c in range(4)
+                   if c == r or c == (r + 1) % 4)
+    model = Raw(worlds, (frozenset((1,)), frozenset((0,))),
+                {w: (w[1] % 2, w[0] % 2) for w in worlds})
+    assert maximal_criterion(model)
+    forward = {v for u in model.successors(0, (0, 0)) for v in model.successors(1, u)}
+    reverse = {v for u in model.successors(1, (0, 0)) for v in model.successors(0, u)}
+    assert forward == {(1, 1)} and reverse == {(3, 3)}
+    assert not forward & reverse
+    assert cube_successors(1, (1, 0)) == cube_successors(0, (0, 1)) == {(1, 1)}
+    model.clear()
+    print('PASS: quotient preserves base conditionals but not program intersection.')
+
+
 if __name__ == '__main__':
     main()
+    equality_size_checks()
+    partial_guard_and_recovery()
+    quotient_intersection_boundary()

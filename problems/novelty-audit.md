@@ -93,28 +93,30 @@ whose publication novelty remains open. A reasonable project description
 is: **raw-variation transfer and visible-quotient theorems connecting finite
 product-modal obstruction with existing assignment semantics.**
 
-The [feasible-domain fusion theorem](feasible-fusion-boundary.md) now gives
-a sharper obstruction. Any antichain of nonsingleton feature coalitions
-can be realized as the minimal ways to change a read-only decision, using
-Boolean coordinates, equality constraints and disjoint inclusion-minimal
-writable supports. Adding passive equal-copy guards preserves the entire
-labeled atomic intervention system while suppressing every such joint
-effect. This yields a strict width hierarchy despite arbitrary nesting.
-The same note gives a maximal-support criterion for the Boolean feature
-quotient on arbitrary feasible domains, with an optimal m-1 witness bound.
+The [feasible-domain fusion theorem](feasible-fusion-boundary.md) is now
+the focused main result. The hidden equality-block/XOR mechanism has a
+specific classical precursor: Benaloh–Leichter, *Generalized Secret Sharing
+and Monotone Functions*, Theorem 2, applied to the complementary access
+structure. Arbitrary coalition realization alone is therefore not a new
+contribution. DL-PPA Section 2.2 already shows that endpoint relations lose
+information needed by parallel composition; its Propositions 7–8 give the
+instrumented translation into DL-PA. These inherited mechanisms are
+explicitly separated from the intervention-specific claims.
 
-The generic statement that endpoint relations lose information relevant to
-parallel composition is **already in DL-PPA Section 2.2**, not a new finding.
-Its Section 3 also permits instrumented compilation into DL-PA; our
-nondefinability only concerns uniform reconstruction from the original
-atomic relational reduct. Functional dependencies, high-order parity
-obstructions, and set-valued exact causal abstraction have prior theories.
-The new note supplies specific primary-source comparisons, including
-constrained causal models and their one-step realization of raw endpoints.
+The strengthened note proves a masked raw realization with an
+atomic-isomorphic **full-product** comparison model; sharp world,
+coordinate and support-size bounds in the stated equality/disjoint-support
+class; parity rigidity at minimum world count; and distinct thresholds for
+first distinguishing width and complete endpoint reconstruction. Its
+language admits unbounded nesting and relational program composition, with
+fusion restricted to explicitly bounded-width primitives. The feature
+quotient theorem, by contrast, concerns the base nested conditional language:
+quotient-image equality alone does not preserve program intersection.
 
-The candidate contribution is therefore the restricted realization and
-guarded-twin theorem, and the exact feasible-domain test, not a new general
-parallel semantics or a certified new causal-abstraction principle. Their
-publication priority remains unestablished. General constrained-domain
-axiomatization and Briggs's causal import–export problem remain open here.
-
+Precise source comparisons in that note cover generalized secret sharing,
+constrained causal models, Beckers–Halpern abstraction, database Armstrong
+relations, and read-only classifier logic. Their cited statements do not
+directly supply the full masked equal-reduct and size/width package, but
+this bounded comparison does not establish publication priority. General
+constrained-domain axiomatization and Briggs's causal import–export problem
+remain separate and open here.
