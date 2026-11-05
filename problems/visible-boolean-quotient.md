@@ -61,6 +61,12 @@ The theorem preserves endpoint sets after projection. It does not identify
 individual raw successors, multiplicities, coordinate supports, or hidden
 states with Boolean assignments.
 
+The later [feasible-domain theorem](feasible-fusion-boundary.md) removes the
+product hypothesis by replacing atomic noninterference with one maximal
+support-union test per feature. Its guarded-twin construction shows that
+atomic relations alone cannot supply these tests on feasible subsets,
+even with disjoint inclusion-minimal writable supports.
+
 ## 2. Proof
 
 For S a coordinate set, write E_S for agreement outside S. Full products
@@ -185,3 +191,4 @@ of raw per-world verifier recursion against partial-assignment semantics,
 exhaustive small atomic criteria, nested formulas, hidden-value examples,
 and the non-product counterexample. These are finite checks of the proof's
 claims, not a substitute for the argument or a novelty test.
+

@@ -69,7 +69,7 @@ complexity of our fixed-cube semantics. [Primary text](https://arxiv.org/pdf/131
   import results remain proved repository claims. This focused audit does
   not independently certify their novelty or reopen every proof.
 
-## The sharpened main statement
+## The product quotient and its constrained-domain limit
 
 The [visible Boolean quotient theorem](visible-boolean-quotient.md) is a
 more precise central characterization than “complete values are the sharp
@@ -93,7 +93,28 @@ whose publication novelty remains open. A reasonable project description
 is: **raw-variation transfer and visible-quotient theorems connecting finite
 product-modal obstruction with existing assignment semantics.**
 
-The remaining research question is which useful hidden-sensitive
-observations or constrained feasible domains admit a similarly intrinsic,
-effective characterization. The full-product theorem does not settle that
-question, nor Briggs's general causal-model import–export problem.
+The [feasible-domain fusion theorem](feasible-fusion-boundary.md) now gives
+a sharper obstruction. Any antichain of nonsingleton feature coalitions
+can be realized as the minimal ways to change a read-only decision, using
+Boolean coordinates, equality constraints and disjoint inclusion-minimal
+writable supports. Adding passive equal-copy guards preserves the entire
+labeled atomic intervention system while suppressing every such joint
+effect. This yields a strict width hierarchy despite arbitrary nesting.
+The same note gives a maximal-support criterion for the Boolean feature
+quotient on arbitrary feasible domains, with an optimal m-1 witness bound.
+
+The generic statement that endpoint relations lose information relevant to
+parallel composition is **already in DL-PPA Section 2.2**, not a new finding.
+Its Section 3 also permits instrumented compilation into DL-PA; our
+nondefinability only concerns uniform reconstruction from the original
+atomic relational reduct. Functional dependencies, high-order parity
+obstructions, and set-valued exact causal abstraction have prior theories.
+The new note supplies specific primary-source comparisons, including
+constrained causal models and their one-step realization of raw endpoints.
+
+The candidate contribution is therefore the restricted realization and
+guarded-twin theorem, and the exact feasible-domain test, not a new general
+parallel semantics or a certified new causal-abstraction principle. Their
+publication priority remains unestablished. General constrained-domain
+axiomatization and Briggs's causal import–export problem remain open here.
+

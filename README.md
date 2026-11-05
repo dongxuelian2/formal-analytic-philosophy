@@ -16,6 +16,13 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Feasible-domain fusion boundary](problems/feasible-fusion-boundary.md):
+
+- Equality-constrained Boolean models with pairwise disjoint, inclusion-minimal writable supports can realize any prescribed antichain of nonsingleton feature coalitions as the minimal interventions capable of changing a read-only decision.
+- Guarded models have isomorphic atomic intervention systems, including all decision labels, but different fused interventions. For every k, agreement on all interventions of width at most k does not determine width k+1, even with arbitrary nesting.
+- On arbitrary finite feasible domains, literal availability and one maximal-support frame test per feature characterize exactly the faithful Boolean feature quotient. The worst-case witness width of m-1 for m features is optimal.
+- Read-only classifier outputs extend the quotient precisely when they factor through the visible features. Generic footprint sensitivity, functional dependence, and causal abstraction are attributed to prior work; novelty of these specific constructions remains unestablished. [Finite checks](models/check_feasible_fusion.py).
+
 [Visible Boolean quotient](problems/visible-boolean-quotient.md):
 
 - On finite full-product raw models, literal availability and preservation of the other visible bits are necessary and sufficient for the visible truth map to preserve every normal-antecedent endpoint set.
@@ -73,4 +80,5 @@ These are proved intermediate results, not a completed axiomatization or a verif
 ## Working style
 
 See [AGENTS.md](AGENTS.md). The repository is organized around mathematical questions and verified results, not a software platform.
+
 
