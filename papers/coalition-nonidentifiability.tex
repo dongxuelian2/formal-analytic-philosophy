@@ -1,0 +1,143 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{enumitem}
+\hypersetup{pdftitle={What atomic interventions do not determine},pdfsubject={Restricted fusion theorem and novelty audit}}
+\setlist{nosep,leftmargin=*}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\F}{\mathbb F_2}
+\newcommand{\Hh}{\mathcal H}
+\newcommand{\xor}{\mathbin\oplus}
+\newcommand{\restr}[1]{\left.#1\right|}
+\title{What atomic interventions do not determine\\[3pt]\large A restricted fusion theorem and a novelty audit}
+\author{}
+\date{5 November 2026}
+\begin{document}
+\maketitle
+\vspace{-2em}
+\begin{abstract}
+Complete single-feature transition relations need not determine joint raw-support interventions. A masked replicated-share construction realizes any antichain of nonsingleton decision-changing coalitions while retaining an atomic-isomorphic full-product comparison. We give the proof, sharp bounds restricted to Boolean equality models, and distinct thresholds for first distinguishability and endpoint reconstruction. Explicit overlap and parity examples delimit the bounds. The sharing construction and generic footprint obstruction are classical; the possible contribution is their precise intervention-specific combination. Our assessment is that this package does not yet justify a standalone research submission without expert confirmation of an independently useful result.
+\end{abstract}
+
+\section{The interface being compared}
+A raw model consists of a nonempty finite set $W\subseteq\{0,1\}^{X}$, Boolean features $p_1,\ldots,p_n$, supports $S_i\subseteq X$, and a read-only decision $d:W\to\{0,1\}$. Locality means that agreement on $S_i$ determines $p_i$. A support is inclusion-minimal if no proper subset supports its predicate; it need not be the unique minimal support. Write $S_J=\bigcup_{i\in J}S_i$ and
+\[
+ wE_Uv\ \Longleftrightarrow\ w|_{X\setminus U}=v|_{X\setminus U},\qquad
+ R_{J,b}(w)=\{v:wE_{S_J}v,\ p_i(v)=b_i\ (i\in J)\}. \tag{1}
+\]
+The empty assignment is identity. Literal availability requires $R_{\{i\},b}(w)\ne\varnothing$ for all $i,b,w$. A coalition changes $d$ globally if some $R_{J,b}(w)$ contains a world with different decision. Uniform change means this is possible for every source and every target pattern on $J$.
+
+The \emph{atomic reduct} retains the entire set of worlds, all $p_i,d$ labels, and all positive and negative literal relations. It forgets raw coordinates, supports, constraints, and joint relations. Thus the result is stronger than an example of insufficient samples, but concerns this exact information interface.
+
+One may also use normal exact antecedents: a literal has its singleton branch, conjunction unions compatible branches, and disjunction retains the left branches, right branches, and their compatible unions. The relation is the union of the corresponding (1). Contradictory branches contribute nothing. This is syntax-sensitive; classical absorption must not remove fusion branches. All arguments below extend branchwise to this language.
+
+\section{Masked atomic-reduct isomorphism}
+\begin{theorem}[Masked replicated-share realization]\label{thm:real}
+For every nonempty antichain $\Hh\subseteq 2^{[n]}$ with $|C|\ge2$ for each $C\in\Hh$, there are models $M_{\Hh},G_{\Hh}$ with the following properties.
+\begin{enumerate}
+\item Both have Boolean coordinates, domains defined solely by pairwise coordinate equalities, disjoint inclusion-minimal feature supports, and deterministic available literals. $G_{\Hh}$ is a full product.
+\item Their atomic reducts, including $d$, are isomorphic. Every joint assignment in both models has exactly the visible feature image $p(w)[J:=b]$.
+\item In $M_{\Hh}$, $R_{J,b}(w)$ can change $d$ iff some $C\in\Hh$ satisfies $C\subseteq J$, uniformly in $w,b$. In $G_{\Hh}$ no joint assignment changes $d$.
+\end{enumerate}
+The construction of $M_{\Hh}$ has $2^{n+|\Hh|}$ worlds, $n+\sum_C|C|$ raw coordinates, and $|S_i|=1+\deg_{\Hh}(i)$.
+\end{theorem}
+\begin{proof}
+Use independent private bits $a_i$. For each $C\in\Hh$ use coordinates $x_{C,i}$, $i\in C$, all constrained equal to a free bit $h_C$. Equalities along a tree suffice. Put
+\[
+ S_i=\{a_i\}\cup\{x_{C,i}:i\in C\in\Hh\},\quad
+ p_i=a_i\xor\bigoplus_{C\ni i}h_C,\quad d=\bigoplus_{C\in\Hh}h_C. \tag{2}
+\]
+The supports are disjoint. Each listed coordinate is essential to its feature: toggle $a_i$ alone, or toggle one whole incident equality block while fixing every other coordinate in $S_i$. This also shows minimality. A representative of each block supports $d$.
+
+Under (1), $h_C$ is free precisely when $C\subseteq J$; otherwise an outside copy fixes it. After choosing the released bits, the target signs uniquely determine
+$a_i=b_i\xor\bigoplus_{C\ni i}h'_C$ for $i\in J$. Unassigned features do not change. There are exactly $2^{|\{C:C\subseteq J\}|}$ endpoints. Keeping all hidden bits preserves $d$; flipping one released bit changes it. Antichainness gives exactly the stated minimal coalitions.
+
+Let $G_{\Hh}$ be the full product on coordinates $(p_1,\ldots,p_n,(h_C)_C)$, with feature support $\{p_i\}$ and the same parity decision. The map $w\mapsto(p(w),h(w))$ is bijective by (2). A literal sets one $p_i$ and fixes all $h_C$ in both models, since every $C$ is nonsingleton. The map therefore preserves labels and both signed literal relations. All fusions in $G_{\Hh}$ still fix $h$. Counting the free bits and their copies gives the sizes.
+\end{proof}
+The masks make every support coordinate genuinely relevant without revealing hidden shares through the features. This bridge to the intervention interface is the extra construction step. The replicated shares and parity secret themselves are classical \cite{isn,bl}. Possible change is never guaranteed change: an endpoint with the old decision always remains.
+
+\section{Sharp bounds only for the stated equality class}
+\begin{theorem}[Equality/disjoint-support size optimum]\label{thm:size}
+Suppose $W$ is \emph{exactly all} Boolean solutions of pairwise coordinate equalities, the $S_i$ are disjoint, and both feature literals are available everywhere. If the globally minimal decision-changing coalitions are $\Hh$, all nonsingleton, then
+\[
+ |W|\ge2^{n+|\Hh|},\qquad |X|\ge n+\sum_{C\in\Hh}|C|,\qquad
+ |S_i|\ge1+\deg_{\Hh}(i). \tag{3}
+\]
+No determinism, support minimality, exact feature projection, or uniform effect assumption is needed. For nonempty $\Hh$, Theorem~\ref{thm:real} attains all three bounds simultaneously; for empty $\Hh$, use the $n$-bit product with constant $d$.
+\end{theorem}
+\begin{proof}
+Equality classes are independent Boolean bits. Call a class essential for $d$ if toggling its bit changes $d$ in some context. The decision varies along $E_U$ somewhere exactly when $U$ contains an essential class: connect any two such endpoints by one-class toggles for the nontrivial direction.
+
+For a class $B$ fully contained in $S_{[n]}$, let $C_B=\{i:B\cap S_i\ne\varnothing\}$. Disjointness gives $B\subseteq S_J$ iff $C_B\subseteq J$. Any endpoint pair can be made a signed intervention by taking the target's feature values. Thus $\Hh$ is precisely the inclusion-minimal family among the $C_B$ of fully covered essential classes. Distinct $C\in\Hh$ require distinct such classes, each with at least $|C|$ coordinates. Availability additionally forces a whole class inside each $S_i$, since otherwise $E_{S_i}$ is identity. These $n$ private classes are distinct and are none of the nonsingleton classes just counted. Counting classes, coordinates, and incidences proves (3).
+\end{proof}
+\noindent\textbf{A proved weakening, not unrestricted overlap.}
+Disjointness may be replaced by inclusion-minimal supports \emph{and} exact Boolean feature projection for every signed conjunction. A minimal support contains at most one representative of each class, and its feature depends essentially on each represented bit. If a coordinate of a fully covered class belonged to two supports, all supports except either one would still cover that class. A toggle that changes that feature would then be an endpoint of an intervention on the other features, contradicting exact projection. Thus fully releasable classes have exclusive owners; the same counting proof applies. This does not assert that these assumptions are logically necessary in every individual model.
+
+\section{Two different width thresholds}
+Let $L_k$ be the relational dynamic language with atoms $p_i,d$, Boolean connectives, and modalities $[\pi]\varphi$. Primitive programs are (1), or normal exact antecedents, mentioning at most $k$ distinct features each. Programs permit tests $?\varphi$, sequence, union, iteration, converse, and intersection. Nesting and program length are unrestricted. There is no footprint test or raw parallel-fusion operator on programs.
+\begin{proposition}[Distinguishability and reset reconstruction]\label{thm:width}
+For Theorem~\ref{thm:real}'s pair, the least distinguishing width is
+$\rho=\min_{C\in\Hh}|C|$. The least width reconstructing every joint endpoint relation of $M_{\Hh}$ by local reset programs is instead $\max_{C\in\Hh}|C|$; it is one for $G_{\Hh}$.
+\end{proposition}
+\begin{proof}
+If $k<\rho$, every primitive fixes all $h_C$, so its full relation agrees under the displayed bijection. Mutual induction on formulas and programs preserves truth and relations, including tests, intersection, converse, and all finite paths of iteration. At width $\rho$, choose a smallest $C$, any target $b$, and a source with $d=0$. Then $[R_{C,b}]\neg d$ holds in $G_{\Hh}$ and fails in $M_{\Hh}$; at $d=1$ use $[R_{C,b}]d$.
+
+For precision, reset on $K$ is the union over all signs of $R_{K,b}$, hence exactly $E_{S_K}$. For fixed $J$, put
+\[
+ F_{J,k}=\left(\bigcup_{K\subseteq J,\ |K|\le k} E_{S_K}\right)^*.
+\]
+All conjunction relations on $J$ are reconstructible by these resets followed by the target test iff $F_{J,k}=E_{S_J}$. Sufficiency is immediate. If equality fails, a missing pair $(w,v)$ is reached by the conjunction with target $p(v)|_J$, but no program made from these resets and the allowed operations can leave its $F_{J,k}$-component. Tests can only filter.
+
+In $M_{\Hh}$, when $k\ge\max_C|C|$, singleton resets change private bits and resets on each released $C\subseteq J$ change its hidden bit. They generate every $E_{S_J}$ endpoint. If some $|C|>k$, every width-$k$ primitive fixes $h_C$, even with arbitrary features and unlimited composition, whereas reset on $C$ can flip it. In the product comparison, singleton resets already generate every support-union reset.
+\end{proof}
+This is isomorphism invariance and elementary connectivity, not a new dynamic-logic invariance theorem. It gives a strict $k$ versus $k+1$ hierarchy by taking $\Hh=\{[k+1]\}$. Guarding selected blocks by equal outside coordinates preserves all primitives that cannot release those blocks, so knowing a smaller coalition's effect need not reveal larger coalitions. The reconstruction claim concerns these endpoint programs, not an unrestricted oracle or enriched compilation.
+
+\section{Examples and assumption failures}
+\paragraph{Two features.}
+Take coordinates $(a_1,a_2,x_1,x_2)$ with $x_1=x_2=h$, $p_i=a_i\xor h$, $S_i=\{a_i,x_i\}$ and $d=h$. At $0000$, the separate positive assignments give $(p_1,p_2,d)=(1,0,0)$ and $(0,1,0)$. Their joint positive assignment has endpoints $1100$ and $0011$, with labels $(1,1,0)$ and $(1,1,1)$. The atomic-isomorphic product on $(p_1,p_2,h)$ has only the first joint label. Its domain also has eight worlds; the full atomic systems are isomorphic, not merely their visible projections.
+
+\paragraph{A pair and a triple.}
+For $\Hh=\{\{1,2\},\{2,3,4\}\}$, (2) uses 64 worlds, nine coordinates, and support sizes $(2,3,2,2)$, attaining (3). Width two distinguishes it from the product. Guarding only the triple block preserves every width-two primitive, including the pair effect, but removes the triple effect. Complete endpoint reconstruction requires width three.
+
+\paragraph{Non-equality feasibility defeats all three bounds.}
+For $n=4$, use $S_i=\{a_i,x_i\}$, $p_i=a_i\xor x_i$, the single parity constraint $x_1\xor x_2\xor x_3\xor x_4=0$, and $d=x_1\xor x_2=x_3\xor x_4$. Singleton interventions fix $x$; joint interventions can change $d$ iff they meet both $\{1,2\}$ and $\{3,4\}$. Target signs are repaired by $a_i$. Thus all four cross pairs are uniformly minimal. There are 128 worlds, eight coordinates and support size two, below the equality/disjoint bounds 256, twelve and three. Supports remain minimal and disjoint, literals deterministic/available, and joint feature projection exact. This is a classical formula-sharing construction used here only as a boundary example, not a new affine theorem.
+
+\paragraph{Overlap alone also defeats all three bounds.}
+Use raw $a_1,\ldots,a_4,x,y$ with $x=y=h$, supports $\{a_i,x\}$ for $i=1,2$ and $\{a_i,y\}$ for $i=3,4$, and $p_i=a_i\xor h$, $d=h$. Again the minimal coalitions are precisely the four cross pairs, uniformly in source and signs; literals are deterministic/available and supports minimal. But there are only 32 worlds, six coordinates and support size two. A joint release can change an \emph{unassigned} feature, so exact conjunction projection fails. This does not refute the proved weakening after Theorem~\ref{thm:size}.
+
+\paragraph{The observational boundary.}
+Recording raw supports and feasibility removes the asserted missing information: (1) then computes joint relations directly. Footprint-aware parallel operators change the language. Also, $d$ here is deterministic on raw states but is not a function of $p$ alone. If $d=f(p)$, exact feature projection and invariance under all singleton assignments force $f$ constant on the full Boolean cube. Availability and exact projection make every Boolean feature vector reachable by successive literal assignments. Thus the result is about coarse-feature interventions with retained hidden state, not causal identification, an unknown classifier determined by exactly those features, or guaranteed recourse.
+
+\section{What is inherited, and what remains to judge}
+\paragraph{Access structures.}
+Ito--Saito--Nishizeki \cite{isn}, Proposition~1 and Theorem~1 (pp.~99--100), already realize general monotone access structures. Benaloh--Leichter \cite{bl}, Theorem~2 (p.~32), realizes monotone formula structures by additive splitting at AND and replication at OR. Apply it to
+$\bigwedge_{C\in\Hh}\bigvee_{i\in C}v_i$ with secret $d=\bigoplus_Ch_C$. Observers $K$ determine $d$ iff they meet every $C$; the writable complement can change it iff it contains a $C$. This is exactly the hidden gadget in (2), not just an analogy. The additional steps are private masking, the explicit full-product atomic isomorphism, and the architecture-specific count of private and essential classes. No unrestricted secret-sharing optimum is proved.
+
+\paragraph{Parallel footprints.}
+Herzig--Maris--Vianey \cite{dlppa}, Section~2.2, already exhibit equal endpoint relations whose parallel behavior differs because write footprints differ. Proposition~3 sequentializes programs with disjoint entire occurring-variable sets; constrained support disjointness here is different. Propositions~7--8 give an instrumented translation using copied variables and write flags, not a definition from our unchanged atomic reduct. Our construction adds equal \emph{primitive literal} relations and arbitrary minimal coalition families under minimal supports; the generic failure of endpoint-only parallel reconstruction is inherited.
+
+\paragraph{Abstraction and constraints.}
+Beckers--Halpern \cite{bh}, Definitions~3.12--3.14, specify cylinder-image and intervention/outcome compatibility for abstractions; Example~3.16 discusses overlapping macro-observables. Exact feature images here specialize that established requirement. Beckers--Halpern--Hitchcock \cite{constraints}, Sections~2--3, permit constraints and equation disconnection; their Theorem~2 axiomatizes a fixed-signature language. Equation (1) has a one-step encoding: at context $U=w$, set raw equations $X_j=w_j$, impose $X\in W$ and $Y_i=p_i(X)$ as constraints, disconnect equations in $S_J$, and intervene on equationless $Y_i$ for $i\in J$. The solution set is exactly (1). This does not supply a compositional translation of our nested modalities, nor do we claim a new constrained causal semantics.
+
+\paragraph{Database independence.}
+Kontinen--Link--V\"a\"an\"anen \cite{klv}, proof of Theorem~1 (pp.~186--187), uses parity with full proper projections but failed higher-order independence; Theorem~5 (p.~192) constructs Armstrong relations for independence atoms. High-order failure is therefore inherited. Those statements concern relations and dependency theories, rather than the complete labeled literal-transition isomorphism and the three restricted sizes above.
+
+\paragraph{A recent intervention-equivalence comparison.}
+Herzig--Saffidine \cite{hs}, Theorem~7, translates structural-equation interventions using auxiliary flags; Section~5.3 and Proposition~9 distinguish equivalence across contexts from equivalence across all interventions. Their Example~6 is already distinguished by a singleton intervention. It does not establish the identical-singleton-reduct hierarchy here, but further rules out treating intervention-sensitive equivalence or auxiliary-state compilation as new.
+
+\paragraph{Assessment.}
+The core statements have complete elementary proofs. In the inspected sources, no cited theorem states the entire masked equal-reduct/size/width package under these exact assumptions. That is not evidence of publication priority. The genuinely additional reasoning is the masking/isomorphism bridge and the essential-class-plus-private-class lower-bound argument; the width proof is routine once the construction is fixed. These increments are narrow and short, so \textbf{we do not recommend a standalone full research submission in the present form}. A short expert novelty check is justified. The strongest objections are that the construction is a direct secret-sharing specialization, the optimum is representation-dependent, and hidden raw outputs limit the intended XAI interpretation. The note should be retained as a precise lemma or methodological counterexample unless experts identify a stronger independent contribution.
+
+\begin{thebibliography}{9}\small
+\bibitem{isn} M.~Ito, A.~Saito, T.~Nishizeki. \emph{Secret Sharing Scheme Realizing General Access Structure}. IEEE GLOBECOM, 1987, 99--102. \href{https://archiv.infsec.ethz.ch/education/as09/secsem/papers/ItSaNi87.pdf}{Primary text}.
+\bibitem{bl} J.~Benaloh, J.~Leichter. \emph{Generalized Secret Sharing and Monotone Functions}. CRYPTO '88, LNCS 403, 1990, 27--35. \href{https://www.cs.cornell.edu/courses/cs754/2001fa/bena88.pdf}{Primary text}.
+\bibitem{dlppa} A.~Herzig, F.~Maris, J.~Vianey. \emph{Dynamic Logic of Parallel Propositional Assignments and its Applications to Planning}. IJCAI 2019, 5576--5582. \href{https://www.ijcai.org/proceedings/2019/0774.pdf}{Primary text}.
+\bibitem{bh} S.~Beckers, J.~Y.~Halpern. \emph{Abstracting Causal Models}. AAAI 2019. \href{https://www.cs.cornell.edu/home/halpern/papers/abstraction.pdf}{Primary text}.
+\bibitem{constraints} S.~Beckers, J.~Y.~Halpern, C.~Hitchcock. \emph{Causal Models with Constraints}. PMLR 213, 2023, 866--879. \href{https://proceedings.mlr.press/v213/beckers23a/beckers23a.pdf}{Primary text}.
+\bibitem{klv} J.~Kontinen, S.~Link, J.~V\"a\"an\"anen. \emph{Independence in Database Relations}. WoLLIC 2013, 179--193. \href{https://www.mv.helsinki.fi/home/jvaanane/KonLinVaa.pdf}{Primary text}.
+\bibitem{hs} A.~Herzig, A.~Saffidine. \emph{A Note on Halpern's Theory of Causality: Structural Equations and Interventions as Dynamic Logic Programs}. Journal of Logic, Language and Information 35, 2026, 187--202. \href{https://doi.org/10.1007/s10849-026-09468-w}{Primary text}.
+\end{thebibliography}
+\end{document}

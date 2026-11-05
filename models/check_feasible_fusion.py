@@ -405,8 +405,57 @@ def quotient_intersection_boundary():
     print('PASS: quotient preserves base conditionals but not program intersection.')
 
 
+def check_boundary(overlap):
+    n = 4
+    if overlap:
+        worlds = tuple(a + (h, h) for a in product((0, 1), repeat=4) for h in (0, 1))
+        supports = tuple(frozenset((i, 4 if i < 2 else 5)) for i in range(4))
+        hidden = lambda w: w[4:5]
+        values = lambda w: tuple(w[i] ^ w[4] for i in range(4))
+        decision = lambda w: w[4]
+    else:
+        worlds = tuple(a + x for a in product((0, 1), repeat=4)
+                       for x in product((0, 1), repeat=4) if sum(x) % 2 == 0)
+        supports = tuple(frozenset((i, 4+i)) for i in range(4))
+        hidden = lambda w: w[4:7]
+        values = lambda w: tuple(w[i] ^ w[4+i] for i in range(4))
+        decision = lambda w: w[4] ^ w[5]
+    def same_outside(w, v, support):
+        return all(x == y for i, (x, y) in enumerate(zip(w, v)) if i not in support)
+    keys = {w: values(w) + hidden(w) for w in worlds}
+    assert len(set(keys.values())) == len(worlds)
+    assert set(keys.values()) == set(product((0, 1), repeat=len(keys[worlds[0]])))
+    for i, support in enumerate(supports):
+        assert all(values(w)[i] == values(v)[i] for w in worlds for v in worlds
+                   if all(w[k] == v[k] for k in support))
+        for removed in support:
+            smaller = support - {removed}
+            assert any(values(w)[i] != values(v)[i] for w in worlds for v in worlds
+                       if all(w[k] == v[k] for k in smaller))
+    comparisons = 0
+    for assignment in product((-1, 0, 1), repeat=4):
+        J = {i for i, b in enumerate(assignment) if b != -1}
+        support = frozenset().union(*(supports[i] for i in J))
+        expected_change = bool(J & {0, 1}) and bool(J & {2, 3})
+        for w in worlds:
+            endpoints = {v for v in worlds if same_outside(w, v, support)
+                         and all(values(v)[i] == assignment[i] for i in J)}
+            assert endpoints
+            assert any(decision(v) != decision(w) for v in endpoints) == expected_change
+            if len(J) == 1:
+                target = tuple(assignment[i] if i in J else values(w)[i] for i in range(4)) + hidden(w)
+                assert {keys[v] for v in endpoints} == {target}
+            comparisons += 1
+    assert len(worlds) == (32 if overlap else 128)
+    assert len(worlds[0]) == (6 if overlap else 8)
+    assert all(len(s) == 2 for s in supports)
+    print('PASS', 'overlap' if overlap else 'affine K2,2', comparisons, 'source/assignment comparisons')
+
+
 if __name__ == '__main__':
     main()
     equality_size_checks()
     partial_guard_and_recovery()
     quotient_intersection_boundary()
+    check_boundary(True)
+    check_boundary(False)

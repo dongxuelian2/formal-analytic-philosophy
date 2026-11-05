@@ -16,21 +16,25 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
-[Feasible-domain fusion boundary](problems/feasible-fusion-boundary.md) is the focused main result:
+The active deliverable is the [five-page expert note](papers/coalition-nonidentifiability.pdf)
+([source](papers/coalition-nonidentifiability.tex)), condensed from the
+[feasible-domain fusion boundary](problems/feasible-fusion-boundary.md).
+It contains three proved statements:
 
-- Any antichain H of nonsingleton feature coalitions has an equality-only Boolean realization with disjoint minimal supports and exactly H as the minimal possible decision-changing coalitions, at every source and for every target bit pattern. A full-product model has the same complete labeled atomic intervention system but no joint decision changes.
-- The realization is size-optimal among equality-only Boolean models with disjoint supports and literal availability: at least 2^(n+|H|) worlds, n+sum_C|C| raw coordinates, and 1+deg_H(i) coordinates in each feature support are necessary. At the minimum world count, uniform effects force the decision parity structure.
-- For the displayed pair, the first distinguishing intervention width is min_C|C|, even with arbitrary nesting, tests, sequential choice/iteration, converse and intersection. Complete endpoint reconstruction in the realization instead needs width max_C|C|. Partial guards isolate the undetermined higher-order coalitions after all width-k data are known.
-- A maximal-support functional-dependency test characterizes exact Boolean feature quotients. A decision-spectrum lemma gives the corresponding precise first-effect width for atomically invariant observations. Deterministic outputs extend the feature-only quotient exactly when they depend only on visible features; the negative XAI examples concern possible effects, not guaranteed recourse or causal identification.
-- The hidden equality/XOR gadget is explicitly identified with classical generalized secret sharing (Benaloh–Leichter, Theorem 2), not claimed as new. Exact DL-PPA, constrained-causal-model, abstraction, database and classifier comparisons delimit the intervention-specific package. Publication priority remains unestablished. [Finite checks](models/check_feasible_fusion.py).
+- Masked equality-block models realize any nonsingleton antichain of minimal possible decision-changing coalitions and have full-product comparisons with isomorphic complete literal-intervention reducts.
+- The exact lower bounds 2^(n+|H|) worlds, n+sum_C|C| coordinates and 1+deg_H(i) support size hold for **Boolean equality solution sets with disjoint supports and literal availability**. They need no support minimality or deterministic literals. Explicit parity and overlapping-support examples violate all three bounds outside this class; the proved minimal-overlap weakening additionally requires exact conjunction projection.
+- First distinguishing width is min_C|C|; endpoint reconstruction by local reset programs needs max_C|C|. These are different questions, and both depend on the specified endpoint-only interface.
 
-[Deterministic fusion representation](problems/deterministic-fusion-representation.md) extends the construction to a classification and sharp model-class boundary:
+The secret-sharing construction and generic footprint obstruction are established prior work. The remaining masking/isomorphism and equality-class counting steps are elementary. **Current judgment: do not submit this package as a standalone full research paper yet.** The precise combination may be useful, but independent novelty and significance remain unestablished. The [consultation brief](papers/coalition-consultation.md) proposes Herzig, Beimel and Beckers and an unsent question. No external expert has been contacted.
 
-- Every equality-only Boolean model with disjoint supports and deterministic available literals has an exact hidden-hypergraph normal form. Joint endpoint counts recover its multiplicities by classical Mobius inversion and completely classify the feature-labeled fusion system, but not arbitrary decision labels. Support minimality is unnecessary for the representation.
-- For affine feasibility, a spanning forest of the decision-changing pair graph gives the general lower bound dim(W) >= n + n - c(G), using only disjoint supports, literal availability, and absence of singleton decision effects. A complete bipartite family attains 2^(2n-1) worlds, 2n raw coordinates, and support size two, versus equality-only 2^(n+kl) worlds and n+2kl coordinates.
-- At the affine raw-coordinate minimum, connected pair-effect graphs are exactly complete multipartite graphs; uniform source-independent effects force complete bipartite graphs. The parity construction is attributed to the classical Benaloh–Leichter formula scheme. [Independent finite checks](models/check_deterministic_fusion.py).
+The note includes the two-feature example, a mixed pair/triple example, exact theorem-level comparisons (including Herzig–Saffidine 2026), and explicit scope limits. It concerns hidden raw state under coarse-feature interventions, not causal identification or guaranteed recourse. The existing [finite checker](models/check_feasible_fusion.py) covers the core and the two boundary examples; no CI has been added.
 
 ### Earlier results retained as research background
+
+[Deterministic fusion representation](problems/deterministic-fusion-representation.md)
+is retained as background from the preceding revision. Its equality normal
+form, endpoint-count inversion and affine results are not part of the
+current expert note. This review adds no further classification theorem.
 
 [Visible Boolean quotient](problems/visible-boolean-quotient.md):
 

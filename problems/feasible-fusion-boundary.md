@@ -15,12 +15,20 @@ sharp size bounds in the equality/disjoint-support class, and precise
 observation-width limits. Section 5 gives theorem-level comparisons;
 publication priority of this combined result remains unestablished.
 
-The companion [deterministic-fusion representation](deterministic-fusion-representation.md)
-classifies all equality-only models with disjoint supports and deterministic
-available literals. It also proves a sharp affine alternative: complete
-bipartite coalition families can require exponentially fewer worlds when
-general parity constraints replace coordinate equalities. This identifies
-a precise boundary of the equality-only optimum below.
+The concise [expert note (PDF)](../papers/coalition-nonidentifiability.pdf)
+([LaTeX source](../papers/coalition-nonidentifiability.tex)) isolates the
+three core statements, proofs, and explicit size-bound failures outside
+their class. [Consultation brief](../papers/coalition-consultation.md)
+gives the assessment and proposed reviewers; nobody has been contacted.
+The current assessment is **not suitable for standalone submission as a
+substantial new theorem in its present form**: the remaining masking and
+class-counting steps are useful but elementary, and independent novelty
+has not been established. This is not a claim that an identical prior
+theorem has been found.
+
+The deterministic-fusion companion is retained as research background,
+not an additional main theorem of this expert-review packet. The present
+revision stops theorem expansion and audits the narrower result below.
 
 ## 1. Language and observations
 
@@ -140,7 +148,7 @@ therefore does not provide guaranteed successful recourse.
 
 ### Optimal size and the structure of equality constraints
 
-**Theorem 2 (sharp size bounds).** Suppose W is exactly all solutions of
+**Theorem 2 (sharp bounds in the Boolean equality/disjoint-support class).** Suppose W is exactly all solutions of
 Boolean coordinate equalities, writable supports S_1,...,S_n are disjoint,
 and both feature literals are available at every world. If the globally
 minimal decision-changing coalitions are H, with all |C|>=2, then
@@ -151,7 +159,9 @@ minimal decision-changing coalitions are H, with all |C|>=2, then
 
 "Globally changing" means from some source under some sign assignment.
 Thus the bounds need neither support minimality nor Theorem 1's stronger
-every-source/all-sign requirement. M_H attains all three simultaneously.
+every-source/all-sign requirement. For nonempty H, M_H attains all three
+simultaneously; the empty case is attained by an n-bit product with
+constant d.
 
 **Proof.** Coordinate equalities partition the coordinates into classes B;
 W is the unrestricted cube on their common bits. A class is *essential*
@@ -190,6 +200,34 @@ change its bit and hence that unassigned feature, contradicting exact
 projection. Thus fully releasable classes have exclusive owners, which
 is all the counting proof needs. This weakening does not cover arbitrary
 feasibility constraints, non-Boolean domains, or nonminimal overlaps.
+
+**Limits of the optimum.** Neither arbitrary feasibility nor arbitrary
+overlap is covered, even when all supports remain minimal and all literals
+remain deterministic and available. Both of the following realize the
+four cross pairs between {1,2} and {3,4}, whereas the equality/disjoint
+bounds are 256 worlds, 12 coordinates, and support size 3:
+
+- On raw (a_1,...,a_4,x_1,...,x_4), impose XOR_i x_i=0, take
+  S_i={a_i,x_i}, p_i=a_i XOR x_i, and d=x_1 XOR x_2. This has 128 worlds,
+  eight coordinates, and support size two. A release changes d exactly
+  when it includes a coordinate from each side, with target bits repaired
+  by the a_i. Supports are disjoint and feature projection remains exact.
+  Thus replacing pairwise equalities by one parity constraint invalidates
+  all three bounds. The construction is a classical formula-sharing
+  instance, not a new affine theorem in this audit.
+- On raw (a_1,...,a_4,x,y), impose x=y=h. Let S_1={a_1,x},
+  S_2={a_2,x}, S_3={a_3,y}, S_4={a_4,y}, p_i=a_i XOR h, and d=h.
+  Now there are only 32 worlds, six coordinates, and support size two.
+  A cross-pair release frees h; every singleton pins it. Exact joint
+  feature projection fails because an unassigned feature can change.
+  This disproves overlap without the additional projection hypothesis,
+  not the preceding weakening.
+
+Both have the full-product atomic comparison w -> (p(w),hidden(w)).
+The coordinate and support measures depend on the chosen raw presentation;
+they are not invariants of the atomic reduct. Recording the full raw
+presentation or adding footprint-aware fusion changes the observation
+interface, so the equal-reduct claim does not assert ignorance there.
 
 At the minimum world count, Theorem 1's stronger uniform property forces
 parity. There are exactly n private class bits a_i and |H| shared bits h_C.
@@ -571,6 +609,16 @@ none of the following broader ideas is claimed as new.
   [DL-PPA](https://www.ijcai.org/proceedings/2019/0774.pdf),
   [2021 text](https://arxiv.org/pdf/2104.14884).
 
+- **Recent intervention equivalence.** Herzig and Saffidine (2026),
+  *A Note on Halpern's Theory of Causality: Structural Equations and
+  Interventions as Dynamic Logic Programs*, Theorem 7, translate
+  interventions using auxiliary flags. Section 5.3 and Proposition 9
+  compare context equivalence with equivalence under all interventions.
+  Example 6 is distinguished already by a singleton intervention, so it
+  is not this equal-singleton-reduct hierarchy. It reinforces the need
+  to distinguish unchanged endpoint observations from enriched program
+  translations. [Primary text](https://doi.org/10.1007/s10849-026-09468-w).
+
 The inspected source statements do not directly state the combined
 masked equal-reduct theorem or its size and observation-width refinements.
 This bounded comparison does not establish publication priority. The
@@ -583,7 +631,8 @@ Run `python models/check_feasible_fusion.py`. It independently enumerates
 coordinate endpoints, tests the maximal criterion on small feasible models,
 checks minimal supports and all coalition/bit-pattern endpoints in the
 realization construction, compares product and guarded atomic reducts,
-checks the equality-class characterization and size rigidity, and exercises
+checks the equality-class characterization, size rigidity and explicit
+overlap/parity counterexamples to broader optimality claims, and exercises
 nested formulas and a nonconstant read-only classifier. Finite checks
 support the general proofs; they neither prove priority nor replace them.
 
