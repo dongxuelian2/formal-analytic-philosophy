@@ -24,6 +24,12 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 - A maximal-support functional-dependency test characterizes exact Boolean feature quotients. A decision-spectrum lemma gives the corresponding precise first-effect width for atomically invariant observations. Deterministic outputs extend the feature-only quotient exactly when they depend only on visible features; the negative XAI examples concern possible effects, not guaranteed recourse or causal identification.
 - The hidden equality/XOR gadget is explicitly identified with classical generalized secret sharing (Benaloh–Leichter, Theorem 2), not claimed as new. Exact DL-PPA, constrained-causal-model, abstraction, database and classifier comparisons delimit the intervention-specific package. Publication priority remains unestablished. [Finite checks](models/check_feasible_fusion.py).
 
+[Deterministic fusion representation](problems/deterministic-fusion-representation.md) extends the construction to a classification and sharp model-class boundary:
+
+- Every equality-only Boolean model with disjoint supports and deterministic available literals has an exact hidden-hypergraph normal form. Joint endpoint counts recover its multiplicities by classical Mobius inversion and completely classify the feature-labeled fusion system, but not arbitrary decision labels. Support minimality is unnecessary for the representation.
+- For affine feasibility, a spanning forest of the decision-changing pair graph gives the general lower bound dim(W) >= n + n - c(G), using only disjoint supports, literal availability, and absence of singleton decision effects. A complete bipartite family attains 2^(2n-1) worlds, 2n raw coordinates, and support size two, versus equality-only 2^(n+kl) worlds and n+2kl coordinates.
+- At the affine raw-coordinate minimum, connected pair-effect graphs are exactly complete multipartite graphs; uniform source-independent effects force complete bipartite graphs. The parity construction is attributed to the classical Benaloh–Leichter formula scheme. [Independent finite checks](models/check_deterministic_fusion.py).
+
 ### Earlier results retained as research background
 
 [Visible Boolean quotient](problems/visible-boolean-quotient.md):
@@ -83,6 +89,7 @@ These are proved intermediate results, not a completed axiomatization or a verif
 ## Working style
 
 See [AGENTS.md](AGENTS.md). The repository is organized around mathematical questions and verified results, not a software platform.
+
 
 
 

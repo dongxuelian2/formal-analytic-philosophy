@@ -15,6 +15,13 @@ sharp size bounds in the equality/disjoint-support class, and precise
 observation-width limits. Section 5 gives theorem-level comparisons;
 publication priority of this combined result remains unestablished.
 
+The companion [deterministic-fusion representation](deterministic-fusion-representation.md)
+classifies all equality-only models with disjoint supports and deterministic
+available literals. It also proves a sharp affine alternative: complete
+bipartite coalition families can require exponentially fewer worlds when
+general parity constraints replace coordinate equalities. This identifies
+a precise boundary of the equality-only optimum below.
+
 ## 1. Language and observations
 
 Let W be a nonempty finite subset of a finite coordinate product. A writable
@@ -579,4 +586,5 @@ realization construction, compares product and guarded atomic reducts,
 checks the equality-class characterization and size rigidity, and exercises
 nested formulas and a nonconstant read-only classifier. Finite checks
 support the general proofs; they neither prove priority nor replace them.
+
 

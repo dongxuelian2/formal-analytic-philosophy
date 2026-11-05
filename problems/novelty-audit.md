@@ -120,3 +120,16 @@ directly supply the full masked equal-reduct and size/width package, but
 this bounded comparison does not establish publication priority. General
 constrained-domain axiomatization and Briggs's causal import–export problem
 remain separate and open here.
+
+The [deterministic-fusion representation](deterministic-fusion-representation.md)
+extends this work from one construction to a complete feature-labeled
+classification within deterministic equality models. It uses classical
+Boolean-lattice Mobius inversion, not a new inversion method. Its affine
+comparison is likewise Benaloh–Leichter's OR-of-AND secret-sharing scheme,
+not a new sharing construction. The additional proved results are the
+intervention count-profile classification, an affine spanning-forest lower
+bound that includes private intervention degrees of freedom, and a
+complete-multipartite rigidity theorem at the raw-coordinate minimum.
+Massey's linear-code access-structure proposition is also distinguished
+from these claims. Their publication priority remains unestablished.
+
