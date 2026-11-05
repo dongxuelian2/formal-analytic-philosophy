@@ -4,6 +4,8 @@ This note isolates one semantic boundary: **constraining a coarse predicate abou
 
 These statements concern formula satisfiability and validity, not CBC on an already supplied finite data set. The existing representation, CBC, and unrestricted finite-validity results are retained.
 
+This is a contrast between specified model classes, not a necessary-and-sufficient decidability boundary. The later [visible Boolean quotient theorem](visible-boolean-quotient.md) proves that complete coordinate values are not necessary: coarse predicates with arbitrarily large hidden domains have the same visible logic whenever literal interventions are available and their resets preserve all other visible bits. See the [source audit](novelty-audit.md) for the distinction between inherited semantics and raw-model transfers.
+
 ## 1. A literal-only no-go with genuine, realizable predicates
 
 Let q_1,q_2,q_3 be distinct intervention predicates. Restrict every conditional antecedent to one of the six literals q_i or NOT q_i. Allow ordinary Boolean state connectives and arbitrarily nested consequents. Data atoms are distinct from these markers. Models are finite full products with arbitrary finite domain sizes and local atomic truth, as before. We may further require that each q_i has a singleton support, that this coordinate is genuinely relevant, and that both q_i and NOT q_i have realizations.
@@ -65,7 +67,7 @@ This is an overwrite representation, not classical replacement of equivalent ant
 
 For arbitrary nesting, keep the current valuation, the current antecedent-generation state, and a stack of formula positions. Each conditional reduces the remaining state-formula nesting depth. The total stack and assignment storage are polynomial, even though runtime can be exponential. Boolean connectives are evaluated depth first as well. Satisfiability additionally enumerates the n initial feature bits; validity checks all of them. Hence both problems are in PSPACE.
 
-**Lower bound.** Start with a closed prenex quantified Boolean formula, with distinct bound variable names (alpha-rename binders first if needed). Translate it by leaving its Boolean matrix unchanged and using
+**Lower bound (the standard DL-PA QBF encoding [HLMT11]).** Start with a closed prenex quantified Boolean formula, with distinct bound variable names (alpha-rename binders first if needed). Translate it by leaving its Boolean matrix unchanged and using
 
     forall p. psi  ->  (p OR NOT p) > translation(psi),
     exists p. psi  ->  NOT ((p OR NOT p) > NOT translation(psi)).
@@ -149,7 +151,9 @@ Fixed finite feature sets give a fixed finite state space. The PSPACE and NP/coN
 
 ## 6. Relation to existing assignment calculi
 
-DL-PA already studies Boolean assignments and their program combinations. Its complexity was corrected to PSPACE in [BHST14]; the earlier 2013 EXPTIME claim must not be used. The constant-assignment effect/frame and composition rules above are standard dynamic-assignment principles.
+DL-PA already studies Boolean assignments and their program combinations. The QBF assignment-choice encoding is in [HLMT11, Section 2.3]; [BHST14] corrects inadequate earlier upper-bound proofs and rejects the 2013 EXPTIME claim. The constant-assignment effect/frame and composition rules above are standard dynamic-assignment principles.
+
+Briggs supplies a closer semantic predecessor than CM9 alone. In her definitions [B12, Sections 1.3 and 3.2], restrict to Boolean variables, all exogenous, with no structural equations. For M_w=(P,empty,w), an intervention u gives M_w[u]=M_(w[u]). Her truthmaker recursion agrees with the exact assignments above, so induction also preserves nested conditionals. This is a deduction from her definitions. Her general completeness theorem does not automatically establish completeness for this subclass; Section 4 supplies the direct argument needed here.
 
 There is an even closer existing language: Herzig, Maris and Vianey's DL-PPA [HMV19]. Its states of execution retain both the result valuation and the set of assigned variables, even when a variable is written to its old value. Parallel branches must agree on overlapping writes; inclusive choice permits the left branch, the right branch, or their parallel composition. After linear-size negation normalization, the map
 
@@ -159,7 +163,7 @@ There is an even closer existing language: Herzig, Maris and Vianey's DL-PPA [HM
 
 is a linear, footprint-preserving translation of exact antecedents into its constant-assignment fragment. Structural induction on the antecedent gives exactly the same consistent partial assignments and endpoints. In particular, p AND NOT p has no successful execution even when one write leaves the original value unchanged: assigned-variable footprints, not just changed-variable sets, determine the conflict. This mechanism is already present in DL-PPA, whose PSPACE results provide additional context for the direct proof above.
 
-The contribution claimed here is the precise semantic restriction and transfer: exact-verifier conjunction is compatible simultaneous assignment, while disjunction includes its fusion alternative. This accounts for the raw language's failure of classical antecedent replacement. Priority for the combined boundary and transfer has not been established; classical assignment-logical results are not claimed as new.
+The reverse map from that constant-assignment/parallel/inclusive-choice program fragment to NNF antecedents is also linear. The correspondence therefore identifies an existing fragment, rather than a new assignment mechanism. The raw-model restriction and transfers, and the positive-pair syntax refinement, are the results to assess separately for novelty. Neither this comparison nor the broader [source audit](novelty-audit.md) establishes their publication priority. Failure of classical antecedent replacement is already explicit in Briggs.
 
 ## Reproducible checks
 
@@ -170,6 +174,8 @@ Run `python models/check_interventions.py`. It compares the per-world exact-veri
 - [TW12] N. Troquard and D. Walther, *On satisfiability in ATL with strategy contexts*, Section 4.1, Theorem 1(ii). [Author PDF](https://www.inf.unibz.it/~ntroquard/PAPERS/TrWa12jelia.pdf). Finite S5-product undecidability used in Theorem 1.
 - [B12] R. Briggs, *Interventionist Counterfactuals* (2012), Section 4, CM9. [Full text](https://humanities-web.s3.us-east-2.amazonaws.com/philosophy/prod/2024-08/Briggs%20Interventionist%20Counterfactuals%202012.pdf). Its recursive structural-equation semantics differs from the raw Boolean-feature semantics here.
 - [BHST14] P. Balbiani, A. Herzig, F. Schwarzentruber and N. Troquard, *DL-PA and DCL-PC: model checking and satisfiability problem are indeed in PSPACE*. [Preprint](https://arxiv.org/abs/1411.7825).
+- [HLMT11] A. Herzig, E. Lorini, F. Moisan and N. Troquard, *A Dynamic Logic of Normative Systems*, IJCAI 2011, Section 2.3, p.229. [Author PDF](https://www.inf.unibz.it/~ntroquard/PAPERS/HeLoMoTr11ijcai.pdf), [checked author mirror](https://troquard.bitbucket.io/PAPERS/HeLoMoTr11ijcai.pdf). The QBF lower-bound encoding is used here; see [BHST14] for the upper-bound correction.
 - A. Herzig and A. Saffidine, *A Note on Halpern's Theory of Causality: Structural Equations and Interventions as Dynamic Logic Programs* (2026). [DOI](https://doi.org/10.1007/s10849-026-09468-w). Relevant explicit Boolean intervention-program comparison, not a theorem about hidden arbitrary-support raw models.
 
 - [HMV19] Andreas Herzig, Frédéric Maris and Julien Vianey, *Dynamic Logic of Parallel Propositional Assignments and its Applications to Planning*, IJCAI 2019, 5576–5582. [Proceedings PDF](https://www.ijcai.org/proceedings/2019/0774.pdf), Section 2.2 and Figure 1 (written-variable footprints and compatible parallel execution), Sections 3.3–3.4 (translations and complexity).
+

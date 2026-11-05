@@ -16,12 +16,19 @@ Research entry point and precise agenda: [Counterfactual semantics](problems/cou
 
 ## Results
 
+[Visible Boolean quotient](problems/visible-boolean-quotient.md):
+
+- On finite full-product raw models, literal availability and preservation of the other visible bits are necessary and sufficient for the visible truth map to preserve every normal-antecedent endpoint set.
+- The map is onto the Boolean cube and preserves arbitrary nested consequents. Coarse predicates may retain unbounded hidden values; complete coordinate values are sufficient, not necessary.
+- A 16-world feasible-domain counterexample shows why atomic conditions alone do not suffice without the full-product hypothesis. [Independent checks](models/check_boolean_quotient.py) compare raw verifier recursion with visible assignment semantics.
+- The [source audit](problems/novelty-audit.md) distinguishes inherited Briggs/DL-PPA semantics, classical complexity machinery, and the raw-model transfers. The quotient method is standard; novelty of the specific characterization remains unestablished.
+
 [Value-complete intervention boundary](problems/value-complete-interventions.md):
 
 - Literal-only coarse-predicate interventions still have non-r.e. finite validity, even with nonconstant, realizable markers of genuinely relevant singleton support. Excluding tautological antecedents does not suffice.
 - For explicit complete Boolean feature values, full Boolean antecedents and nested consequents have PSPACE-complete satisfiability/validity and a sound, weakly complete intervention-reduction calculus.
 - PSPACE hardness already uses only non-tautological positive alternatives p OR q; deterministic literal-conjunction assignments instead give NP/coNP satisfiability/validity for tree formulas.
-- The exact relation to prior DL-PA/DL-PPA assignment calculi is attributed. [Checks](models/check_interventions.py) cover reduction, overwrite, literal projection, and guarded QBF translations.
+- The positive semantics is an equation-free Boolean specialization of Briggs and a definitional counterpart of a DL-PPA fragment. [Checks](models/check_interventions.py) cover reduction, overwrite, literal projection, and guarded QBF translations. The two model classes form a proved contrast, not a classification of all decidable restrictions.
 
 [Finite axiomatization boundary](problems/finite-axiomatization-boundary.md):
 
@@ -66,3 +73,4 @@ These are proved intermediate results, not a completed axiomatization or a verif
 ## Working style
 
 See [AGENTS.md](AGENTS.md). The repository is organized around mathematical questions and verified results, not a software platform.
+

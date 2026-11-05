@@ -289,6 +289,10 @@ question must be treated separately from this raw-variation semantics.
   section 4.2. https://doi.org/10.1111/phpr.12565
 * Rachael Briggs (2012), *Interventionist counterfactuals*, *Philosophical
   Studies* 160, 139–166. https://doi.org/10.1007/s11098-012-9908-5
-  The publisher abstract confirms a prior sound/complete axiomatization and
-  the unrestricted-MP issue. Its full text has not been verified in this
-  research pass, so this note asserts no new result about that system.
+  The [full text](https://humanities-web.s3.us-east-2.amazonaws.com/philosophy/prod/2024-08/Briggs%20Interventionist%20Counterfactuals%202012.pdf)
+  has now been checked: Sections 3.2–4 give exact truthmakers and the
+  sound/complete causal-model calculus. The later
+  [source audit](novelty-audit.md) identifies the Boolean overwrite case as
+  its equation-free specialization. The unrestricted causal-model
+  import–export question is not settled by the raw results here.
+
