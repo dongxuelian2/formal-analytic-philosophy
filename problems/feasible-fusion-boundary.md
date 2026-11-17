@@ -18,13 +18,9 @@ publication priority of this combined result remains unestablished.
 The concise [expert note (PDF)](../papers/coalition-nonidentifiability.pdf)
 ([LaTeX source](../papers/coalition-nonidentifiability.tex)) isolates the
 three core statements, proofs, and explicit size-bound failures outside
-their class. [Consultation brief](../papers/coalition-consultation.md)
-gives the assessment and proposed reviewers; nobody has been contacted.
-The current assessment is **not suitable for standalone submission as a
-substantial new theorem in its present form**: the remaining masking and
-class-counting steps are useful but elementary, and independent novelty
-has not been established. This is not a claim that an identical prior
-theorem has been found.
+their class. The paper and Section 5 below give the prior-art comparisons.
+Independent novelty and significance of the masking and class-counting
+arguments remain open.
 
 The deterministic-fusion companion is retained as research background,
 not an additional main theorem of this expert-review packet. The present
